@@ -1,0 +1,8 @@
+.container
+  .row
+    .col-md-8
+      h1.page-header
+        All emergencies
+      - @emergencies.each do |emergency|
+        h2
+          = link_to emergency.title, emergency_path(emergency)
