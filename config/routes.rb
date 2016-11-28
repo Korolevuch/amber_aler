@@ -3,4 +3,5 @@ Rails.application.routes.draw do
   devise_for :users
   resources :users
   resources :emergencies
+  resources :messages, only: [ :create, :new, :edit, :update, :destroy ]
 end

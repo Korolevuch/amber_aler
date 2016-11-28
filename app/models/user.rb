@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
-  has_many :emergencies
+  has_many :emergencies, dependent: :destroy
+  has_many :messages, dependent: :destroy
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
