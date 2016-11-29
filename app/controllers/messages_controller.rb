@@ -1,6 +1,7 @@
 class MessagesController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit, :update, :destroy]
   before_action :find_emergency, only: [:index, :create]
+  before_action :find_message, only: [:edit, :update, :destroy]
 
   def create
     @message = @emergency.messages.build(messages_params)
@@ -13,15 +14,9 @@ class MessagesController < ApplicationController
     redirect_to(emergency_path(@emergency))
   end
 
-  def new
-  end
-
-  def edit
-    @message = Message.find(params[:id])
-  end
+  def edit; end
 
   def update
-    @message = Message.find(params[:id])
      if @message.update(messages_params)
       flash[:notice] = "Updated"
     else
@@ -31,7 +26,6 @@ class MessagesController < ApplicationController
   end
 
   def destroy
-    @message = Message.find(params[:id])
     if @message.destroy
       flash[:notice] = "Message is destroy"
     else
@@ -48,6 +42,10 @@ class MessagesController < ApplicationController
 
   def find_emergency
     @emergency = Emergency.find(params[:emergency_id])
+  end
+
+  def find_message
+    @message = Message.find(params[:id])
   end
 
 
