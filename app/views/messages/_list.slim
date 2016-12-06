@@ -1,0 +1,44 @@
+- emergency.messages.each do |message|
+  div.media id="message-#{message.id}"
+    /user avatar
+    a.pull-left href='#'
+      img.media-object src="http://placehold.it/64x64" alt =message.user.name
+    div.media-body
+      h4.media-heading
+        /title can go here
+        small
+          = message.user.name
+          = message.created_at
+          - if message.user == current_user
+            => link_to 'Edit', edit_message_path(message)
+            = link_to 'Delete', message_path(message), method: :delete, data: {confirm: 'Are you sure?'}
+
+      = message.text
+
+hr
+h4
+  | Leave a Message:
+= render 'messages/form', emergency: emergency
+
+
+/table.table
+  thead
+    tr
+      th
+  tbody
+    /= binding.pry
+    - emergency.messages.each do |m|
+      tr
+        td
+          = link_to m.user.name, user_path(m.user.id)
+        td
+          = m.text
+        td
+          = m.claim_closed
+        td
+          - if m.user == current_user
+            = link_to 'Edit', edit_message_path(m.id)
+        td
+          - if m.user == current_user
+           = link_to 'Delete', message_path(m.id), method: :delete , data:{confirm: 'Are you sure?'}
+

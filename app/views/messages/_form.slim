@@ -1,9 +1,6 @@
-div
-  =form_for :message, url: messages_path(emergency_id: @emergency.id), method: :post do |f|
-
-    =f.label :message
-
-    =f.text_field :text
-
-    =f.submit
-
+div.well
+  = simple_form_for([@emergency, @message]) do |f|
+    = f.input :text, rows: 3
+    - if @message.emergency && @message.emergency.user == current_user
+      = f.input :claim_closed, as: :boolean, class: 'btn btn-primary'
+    = f.button :submit

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161127160547) do
+ActiveRecord::Schema.define(version: 20161130181416) do
 
   create_table "emergencies", force: :cascade do |t|
     t.string   "title"
@@ -21,10 +21,12 @@ ActiveRecord::Schema.define(version: 20161127160547) do
   end
 
   create_table "messages", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "emergency_id"
-    t.text    "text"
-    t.boolean "claim_closed"
+    t.integer  "user_id"
+    t.integer  "emergency_id"
+    t.text     "text"
+    t.boolean  "claim_closed"
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.index ["emergency_id"], name: "index_messages_on_emergency_id"
     t.index ["user_id"], name: "index_messages_on_user_id"
   end
