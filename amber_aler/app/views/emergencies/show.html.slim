@@ -1,0 +1,18 @@
+section
+  div.col-md-8
+    div.fr-view
+      h1.page-header = @emergency.title
+      p.lead = "by #{@emergency.user.display_name}"
+      hr
+      p
+        span.glyphicon.glyphicon-time>
+        span = "Posted on #{@emergency.created_at}"
+      hr
+      = sanitize_wysiwyg @emergency.description
+    = render 'messages/list', emergency: @emergency
+
+  div.col-md-4
+    div.well
+      h4
+        | Navigation
+      = link_to "All Emergencirs", emergencies_path

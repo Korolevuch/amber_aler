@@ -1,0 +1,20 @@
+doctype html
+html
+  head
+    meta[name="viewport" content="width=device-width, initial-scale=1.0"]
+    title
+      = content_for?(:title) ? yield(:title) : 'Amber Aler'
+    meta name="description" content="#{content_for?(:description) ? yield(:description) : 'Amber Aler'}"
+    == stylesheet_link_tag "application", :media => 'all', 'data-turbolinks-track' => 'reload'
+    == javascript_include_tag 'application', 'data-turbolinks-track' => 'reload'
+    == csrf_meta_tags
+  body
+    == render 'layouts/navigation'
+    main[role="main"]
+      == render 'layouts/messages'
+      == yield
+      footer
+        div.row
+          div.col-lg-12
+            p 
+              | Copyright © AmberAler 2016

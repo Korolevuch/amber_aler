@@ -1,0 +1,19 @@
+= simple_form_for(@emergency) do |f|
+  = f.error_notification
+
+  = f.input :title
+  = f.input :description, :input_html => {:style=> 'height: 200px'}
+
+  = f.button :submit
+
+javascript:
+  $('#emergency_description').froalaEditor({
+    paragraphFormat: {
+      N: 'Normal',
+      H4: 'Heading 1',
+      H5: 'Heading 2',
+      H6: 'Heading 3',
+      PRE: 'Code'
+    },
+    pastePlain: true
+  })
