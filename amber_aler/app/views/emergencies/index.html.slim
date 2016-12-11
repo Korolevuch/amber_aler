@@ -2,7 +2,7 @@ section
   div.col-md-8
     h1.page-header
       | Recent Emergencies
-    
+
     - @emergencies.each do |emergency|
       h2 = link_to emergency.title, emergency
       p.lead = "by #{emergency.user.display_name}"
@@ -21,7 +21,7 @@ section
       hr
 
     = paginate @emergencies
-     
+
   div.col-md-4
     div.well
       h4

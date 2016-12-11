@@ -1,0 +1,13 @@
+- if user_signed_in?
+  span.dropdown.nav.navbar-right.navbar-brand.navbar-top-links
+    span.dropdown-toggle data-toggle="dropdown"
+      / => avatar_tag(current_user, size: 18, real: true, class: 'media-object avatar')
+      => current_user.display_name
+      b.caret
+    ul.dropdown-menu
+      li = link_to 'Edit account', edit_user_registration_path
+      li = link_to 'Sign out', destroy_user_session_path, :method=>'delete'
+- else
+  ul.nav.navbar-right.navbar-top-links
+    li = link_to 'Sign in', new_user_session_path, class: 'navbar-brand'
+    li = link_to 'Sign up', new_user_registration_path, class: 'navbar-brand'
