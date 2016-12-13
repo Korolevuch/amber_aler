@@ -1,0 +1,32 @@
+
+= link_to 'Edit',  edit_emergency_path
+= link_to 'Delete', emergency_path, method: :delete
+.container
+  .row
+    /! Blog Post Content Column
+    .col-lg-8
+      /! Blog Post
+      /! Title
+      h1 = @emergency.title
+      /! Author
+      p.lead
+        | by
+        a href="#"  Start Bootstrap
+      hr/
+      /! Date/Time
+      p
+        span.glyphicon.glyphicon-time
+          = @emergency.created_at
+      hr/
+      /! Preview Image
+      img.img-responsive alt="" src="http://placehold.it/900x300" /
+      hr/
+      /! Post Content
+      = @emergency.description
+      hr/
+      /! Blog Comments
+      div
+        =render 'messages/form'
+        =render 'messages/index'
+      /! Comments Form
+

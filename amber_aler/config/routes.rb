@@ -1,8 +1,7 @@
 Rails.application.routes.draw do
-  root to: 'emergencies#index'
+  root to: 'visitors#index'
   devise_for :users
   resources :users
-  resources :emergencies do
-    resources :messages, except: [:index, :show, :new], shallow: true
-  end
+  resources :emergencies
+  resources :messages, only: [ :create, :new, :edit, :update, :destroy ]
 end

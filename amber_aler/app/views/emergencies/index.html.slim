@@ -1,29 +1,8 @@
-section
-  div.col-md-8
-    h1.page-header
-      | #{t("emerg_index.last_emerg")}
-
-    - @emergencies.each do |emergency|
-      h2 = link_to emergency.title, emergency
-      p.lead = "by #{emergency.user.display_name}"
-      p
-        - if emergency.updated_at != emergency.created_at
-          span.glyphicon.glyphicon-time>
-          span => "#{t("emerg_index.updated")} #{emergency.updated_at}"
-        span.glyphicon.glyphicon-time>
-        span => "#{t("emerg_index.created")} #{emergency.created_at}"
-        - if emergency.user == current_user
-          => link_to "#{t("emerg_index.edit")}", edit_emergency_path(emergency)
-          = link_to "#{t("emerg_index.destroy")}", emergency_path(emergency), method: :delete, data:{confirm: "#{t('emerg_index.conf_destroy')}" }
-      hr
-      = sanitize_wysiwyg emergency.description, shorten: 100
-      = link_to "#{t("emerg_index.read_more")}", emergency, class: "btn btn-primary"
-      hr
-
-    = paginate @emergencies
-
-  div.col-md-4
-    div.well
-      h4
-        | #{t("show_emerg.nav")}
-      = link_to "#{t("emerg_index.create_n")}", new_emergency_path
+.container
+  .row
+    .col-md-8
+      h1.page-header
+        All emergencies
+      - @emergencies.each do |emergency|
+        h2
+          = link_to emergency.title, emergency_path(emergency)

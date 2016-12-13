@@ -1,42 +1,52 @@
 class MessagesController < ApplicationController
+  before_action :authenticate_user!, only: [:new, :edit, :update, :destroy]
+  before_action :find_emergency, only: [:index, :create]
   before_action :find_message, only: [:edit, :update, :destroy]
 
   def create
-    @message = Message.new(message_params)
-    @message.emergency_id = params[:emergency_id]
-    @message.user = current_user
+    @message = @emergency.messages.build(messages_params)
+    @message.user_id = current_user.id
     if @message.save
-      redirect_to emergency_path(@message.emergency_id)
+      flash[:notice] = 'Saved'
     else
-      render "emergencies/show"
+      flash[:error] = 'Error'
     end
+    redirect_to(emergency_path(@emergency))
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
-    if @message.update(message_params)
-      redirect_to emergency_path(@message.emergency_id)
+     if @message.update(messages_params)
+      flash[:notice] = "Updated"
     else
-      render :edit
+      flash[:error] = 'Error'
     end
+      redirect_to(emergency_path(@message.emergency))
   end
 
   def destroy
     if @message.destroy
-      redirect_to emergency_path(@message.emergency_id)
+      flash[:notice] = "Message is destroy"
     else
-      redirect_to emergency_path(@message.emergency_id), flash: {error: 'Something went wrong'}
+      flash[:error] = 'Error'
     end
+      redirect_to(emergency_path(@message.emergency))
   end
 
   private
-  def message_params
+
+  def messages_params
     params.require(:message).permit(:text, :claim_closed)
+  end
+
+  def find_emergency
+    @emergency = Emergency.find(params[:emergency_id])
   end
 
   def find_message
     @message = Message.find(params[:id])
   end
+
+
 end
