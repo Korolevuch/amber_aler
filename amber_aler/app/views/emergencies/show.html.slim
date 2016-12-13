@@ -6,7 +6,7 @@ section
       hr
       p
         span.glyphicon.glyphicon-time>
-        span = "Posted on #{@emergency.created_at}"
+        span = "#{t("emerg_index.created")} #{@emergency.created_at}"
       hr
       = sanitize_wysiwyg @emergency.description
     = render 'messages/list', emergency: @emergency
@@ -14,5 +14,5 @@ section
   div.col-md-4
     div.well
       h4
-        | Navigation
-      = link_to "All Emergencirs", emergencies_path
+        | #{t("show_emerg.nav")}
+      = link_to t("show_emerg.all"), emergencies_path

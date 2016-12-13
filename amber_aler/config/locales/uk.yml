@@ -1,0 +1,25 @@
+uk:
+  emerg_index:
+    destroy: "Видалити"
+    edit: "Редагувати"
+    last_emerg: "Останні надзвичайні випадки"
+    updated: "Оновлена:"
+    created: "Створена:"
+    read_more: "Читати більше"
+    conf_destroy: "Ви впевнені?"
+    create_n: "Створити нову стaттю"
+  show_emerg:
+    all: "Усі випадки"
+    nav: "Навігація"
+  message:
+    live_mess: "Залишити повідомлення:"
+    not_allowed: "Повідомлення закриті!"
+  nav_links:
+    prof: 'Профіль'
+    edit: 'Редагувати'
+    out: 'Вийти'
+    sign_in: 'Увійти'
+    sign_up: "Реєструватись"
+    emerg: "Усі випадки"
+    home: "Домашня"
+

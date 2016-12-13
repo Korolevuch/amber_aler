@@ -66,6 +66,10 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    carrierwave (1.0.0.rc)
+      activemodel (>= 4.0.0)
+      activesupport (>= 4.0.0)
+      mime-types (>= 1.16)
     childprocess (0.5.9)
       ffi (~> 1.0, >= 1.0.11)
     coderay (1.1.1)
@@ -153,8 +157,13 @@ GEM
     mime-types (3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
+    mini_magick (4.6.0)
     mini_portile2 (2.1.0)
     minitest (5.9.1)
+    mobileesp_converted (0.2.3)
+    mobvious (0.3.2)
+      mobileesp_converted (~> 0.2.0)
+      rack (>= 1.1.0)
     multi_json (1.12.1)
     nenv (0.3.0)
     nio4r (1.2.1)
@@ -214,6 +223,8 @@ GEM
       ffi (>= 0.5.0)
     responders (2.3.0)
       railties (>= 4.2.0, < 5.1)
+    responsive_images (0.1.2)
+      mobvious
     rspec (3.5.0)
       rspec-core (~> 3.5.0)
       rspec-expectations (~> 3.5.0)
@@ -315,6 +326,7 @@ DEPENDENCIES
   bootstrap-sass
   byebug
   capybara
+  carrierwave (>= 1.0.0.rc, < 2.0)
   coffee-rails (~> 4.1.0)
   database_cleaner
   devise
@@ -330,6 +342,7 @@ DEPENDENCIES
   jquery-rails
   kaminari
   launchy
+  mini_magick
   pg
   pry-rails
   pry-rescue
@@ -338,6 +351,7 @@ DEPENDENCIES
   rb-fchange
   rb-fsevent
   rb-inotify
+  responsive_images
   rspec-rails
   rubocop
   sass-rails (~> 5.0)

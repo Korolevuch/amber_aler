@@ -16,6 +16,7 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  name                   :string
+#  avatar                 :string
 #
 # Indexes
 #
@@ -24,14 +25,21 @@
 #
 
 class User < ApplicationRecord
+  mount_uploader :avatar, AvatarUploader
   validates :name, :email, presence: true
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+
   has_many :emergencies, dependent: :destroy
   has_many :messages,    dependent: :destroy
+
+
+  validates_presence_of   :avatar
+  validates_integrity_of  :avatar
+  validates_processing_of :avatar
 
   def display_name
     name.presence || "User ##{id}"
