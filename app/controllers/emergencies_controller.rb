@@ -4,12 +4,16 @@ class EmergenciesController < ApplicationController
   before_action :only_author!, only: [:edit, :update, :destroy]
 
   def index
-    @emergencies = Emergency.all
+    @emergencies = Emergency.order(:updated_at).last(5)
   end
 
-  def new; end
+  def new
+    @emergency = Emergency.new
+  end
 
-  def show; end
+  def show
+    @message = Message.new(emergency: @emergency)
+  end
 
   def create
     @emergency = Emergency.create(emergency_params)

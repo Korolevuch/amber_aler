@@ -1,8 +1,20 @@
-.container
-  .row
-    .col-md-8
-      h1.page-header
-        All emergencies
-      - @emergencies.each do |emergency|
-        h2
-          = link_to emergency.title, emergency_path(emergency)
+
+h1
+  |All emergencies
+table.table
+  thead
+    tr
+      th
+        | Name
+  tbody
+    - @emergencies.each do |emergency|
+      tr
+        td
+          = link_to emergency.title, emergency
+        td
+          - if emergency.user == current_user
+            = link_to "Edit", edit_emergency_path(emergency)
+        td
+          - if emergency.user == current_user
+            = link_to "Destroy", emergency_path(emergency), method: :delete, data:{confirm: 'Are you sure?'}
+= link_to "Create new emergency", new_emergency_path
