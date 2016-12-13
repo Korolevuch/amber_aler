@@ -9,8 +9,12 @@ html
     == javascript_include_tag 'application', 'data-turbolinks-track' => 'reload'
     == csrf_meta_tags
   body
-    header
-      == render 'layouts/navigation'
+    == render 'layouts/navigation'
     main[role="main"]
       == render 'layouts/messages'
       == yield
+      footer
+        div.row
+          div.col-lg-12
+            p
+              | Copyright © AmberAler 2016
