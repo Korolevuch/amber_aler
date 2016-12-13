@@ -1,55 +1,63 @@
 class EmergenciesController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :edit, :update, :destroy]
-  before_action :find_emergency, only: [:destroy, :show, :edit, :update]
+
+  before_action :find_emergency, only: [:edit, :update, :show, :destroy]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update]
   before_action :only_author!, only: [:edit, :update, :destroy]
 
-  def index
-    @emergencies = Emergency.all
+  def new
+    @emergency = Emergency.new
   end
-
-  def new; end
-
-  def show; end
 
   def create
-    @emergency = Emergency.create(emergency_params)
+    @emergency = Emergency.new(page_params)
     @emergency.user = current_user
-    @emergency.save ? redirect_to(emergency_path(@emergency)) : render(:new)
+    if @emergency.save
+      redirect_to emergencies_path
+    else
+      render :new
+    end
   end
 
-  def edit; end
+  def index
+    @emergencies = Emergency.not_archived.order(updated_at: :desc).page(params[:page]).per(5)
+  end
+
+  def edit
+  end
 
   def update
-    if @emergency.update(emergency_params)
-      flash[:notice] = "#{@emergency.title} is update"
-      redirect_to(emergency_path(@emergency))
+    if @emergency.update(page_params)
+      redirect_to emergencies_path
     else
-      render(:edit)
+      render :edit
     end
+  end
+
+  def show
+    @message = Message.new(emergency: @emergency)
+    @messages = @emergency.messages.page(params[:page]).per(5)
   end
 
   def destroy
-    @emergency.destroy
-    flash.notice = "Emergency #{@emergency.title} is destroy"
-    redirect_to(emergencies_path)
-  end
-
-
-  private
-
-   def find_emergency
-    @emergency = Emergency.find(params[:id])
-  end
-
-  def emergency_params
-    params.require(:emergency).permit(:title, :description)
-  end
-
-  def only_author!
-    if @emergency.user != current_user
-      flash[:error] = 'Permition denied'
-      redirect_to(emergencies_path)
+    if @emergency.destroy
+      redirect_to emergencies_path
+    else
+      redirect_to emergencies_path, flash: {error: 'Something goes wrong'}
     end
   end
 
+  private
+    def only_author!
+      unless @emergency.user == current_user
+        redirect_to emergencies_path, flash: {error: 'Only author can update emergency'}
+      end
+    end
+
+    def page_params
+      params[:emergency].permit(:title, :description)
+    end
+
+    def find_emergency
+      @emergency = Emergency.find(params[:id])
+    end
 end
