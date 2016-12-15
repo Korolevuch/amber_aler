@@ -24066,3 +24066,4 @@ Processing by EmergenciesController#index as HTML
 Completed 200 OK in 167ms (Views: 163.7ms | ActiveRecord: 1.5ms)
 
 
+DEPRECATION WARNING: ActiveRecord::Base.raise_in_transactional_callbacks= is deprecated, has no effect and will be removed without replacement. (called from <top (required)> at /home/bohdan/amber_aler/app/models/application_record.rb:1)
