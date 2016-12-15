@@ -9,7 +9,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'wysiwyg-rails'
 gem 'truncate_html'
 gem 'kaminari'
-gem 'carrierwave', '>= 1.0.0.rc', '< 2.0'
+gem 'carrierwave'
 gem 'mini_magick'
 gem 'responsive_images'
 group :development, :test do

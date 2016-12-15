@@ -325,7 +325,7 @@ DEPENDENCIES
   bootstrap-sass
   byebug
   capybara
-  carrierwave (>= 1.0.0.rc, < 2.0)
+  carrierwave
   coffee-rails (~> 4.1.0)
   database_cleaner
   devise
