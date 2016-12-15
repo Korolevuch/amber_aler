@@ -1,10 +1,17 @@
-section
-  div.col-md-4
+.container
+  .span3.well
+    center
     - if @user.avatar?
-        = image_tag @user.avatar.url
+      = image_tag(@user.avatar.url, height: 140, width: 140, class: "img-circle height" )
     - else
-        = image_tag("photo.jpg")
-    h1 ==@user.name
-    h4 ==@user.email
-  div.col-md-4
-
+      = image_tag("photo.jpg", height: 140, width: 140, class: "img-circle height" )
+    center
+      h3 = @user.name
+      h4 = @user.email
+  .span3.well.margin-well
+    p
+    - @user.emergencies.each do |em|
+      ul.list-group
+        li.list-group-item.disabled
+          span.badge = em.messages.count if @user == current_user
+          = link_to  "#{em.title}", emergency_path(em)

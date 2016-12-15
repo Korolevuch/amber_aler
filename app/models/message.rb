@@ -15,6 +15,11 @@
 #  index_messages_on_emergency_id  (emergency_id)
 #  index_messages_on_user_id       (user_id)
 #
+# Foreign Keys
+#
+#  fk_rails_273a25a7a6  (user_id => users.id)
+#  fk_rails_51ec75cd65  (emergency_id => emergencies.id)
+#
 
 class Message < ApplicationRecord
   belongs_to :user
