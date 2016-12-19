@@ -5,4 +5,7 @@ Rails.application.routes.draw do
   resources :emergencies do
     resources :messages, except: [:index, :show, :new], shallow: true
   end
+  namespace :admin do
+    resources :users
+  end
 end
