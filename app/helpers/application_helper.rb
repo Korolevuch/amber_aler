@@ -13,6 +13,9 @@ module ApplicationHelper
       image_tag('photo.jpg', size: 80, class: "circular-image")
     end
   end
+end
+
+
 
 =begin
   def avatar_url(user, size: 200, real: false)
@@ -32,4 +35,3 @@ module ApplicationHelper
     Digest::MD5.hexdigest(user.email&.downcase)
   end
 =end
-end

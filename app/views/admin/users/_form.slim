@@ -1,0 +1,17 @@
+= form_for [:admin, @user] do |f|
+  ul.text-danger
+
+  .form-group
+  = f.label :name
+  = f.text_field :name, class: 'form-control'
+
+  .form-group
+  = f.label :email
+  = f.text_field :email, class: "form-control"
+
+  .form-group
+  = f.label :role
+  = f.select :role, options_for_select(User.roles.keys.map {|role| [role.titleize, role]}), {}, {class: 'form-control'}
+
+  .form-group
+  = f.submit 'Update user', class: 'btn btm-rimary'

@@ -8,6 +8,8 @@
     center
       h3 = @user.name
       h4 = @user.email
+      h1 = link_to("Admin", [:admin, :users], class: "btn btn-success btn-xs") if current_user.admin? && @user.admin?
+
   .span3.well.margin-well
     p
     - @user.emergencies.each do |em|
@@ -15,3 +17,5 @@
         li.list-group-item.disabled
           span.badge = em.messages.count if @user == current_user
           = link_to  "#{em.title}", emergency_path(em)
+
+
