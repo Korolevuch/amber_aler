@@ -1,5 +1,5 @@
-class Admin::UsersController < ApplicationController
-  before_action :set_user, only: [:edit, :update, :destroy]
+class Admin::UsersController < Admin::ApplicationController
+  before_action :set_user, only: [:edit, :update, :destroy, :toggle_active]
 
   def index
     @users = User.all
@@ -20,6 +20,11 @@ class Admin::UsersController < ApplicationController
     redirect_to([:admin, :user])
   end
 
+  def toggle_active
+    @user.toggle! :active
+    redirect_to([:admin, :users])
+  end
+
   private
 
   def set_user
@@ -27,7 +32,7 @@ class Admin::UsersController < ApplicationController
   end
 
   def params_for_user
-    params.require(:user).permit(:name, :email, :role)
+    params.require(:user).permit(:name, :email, :role, :active)
   end
 
 end

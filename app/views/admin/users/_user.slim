@@ -5,7 +5,7 @@ td
 td
   = user.role
 td
-  = link_to 'Emergencies'
+  = link_to activity_button_title(user), toggle_active_admin_user_path(user), method: :patch, class: 'btn btn-default'
 td
   = link_to 'edit', [:edit, :admin, user], class: 'btn btn-default'
 td

@@ -6,6 +6,11 @@ Rails.application.routes.draw do
     resources :messages, except: [:index, :show, :new], shallow: true
   end
   namespace :admin do
-    resources :users
+    resources :emergencies, only: [:destroy]
+    resources :users do
+      member do
+        patch 'toggle_active'
+      end
+    end
   end
 end
