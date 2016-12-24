@@ -17,6 +17,7 @@ end
 
 
 
+
 =begin
   def avatar_url(user, size: 200, real: false)
     gravatar_id = email_hexdigest_for user

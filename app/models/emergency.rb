@@ -15,7 +15,7 @@ class Emergency < ApplicationRecord
   belongs_to :user
   has_many :messages, dependent: :destroy
 
-  STATUSES = [ACTIVE = :active, CLOSED = :closed, ARCHIVED = :archived]
+  STATUSES = [ACTIVE = "active", CLOSED = "closed", ARCHIVED = "archived"]
 
   scope :active,   -> { where(status: ACTIVE) }
   scope :closed,   -> { where(status: CLOSED) }
