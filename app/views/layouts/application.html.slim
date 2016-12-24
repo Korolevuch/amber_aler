@@ -10,7 +10,7 @@ html
     == csrf_meta_tags
   body
     == render 'layouts/navigation'
-    - unless current_user.active
+    - if current_user&.active == false
       .alert.alert-danger
         | You are blocked pleas contact with Admin
     main[role="main"]
