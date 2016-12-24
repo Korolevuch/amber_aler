@@ -10,6 +10,9 @@ html
     == csrf_meta_tags
   body
     == render 'layouts/navigation'
+    - unless current_user.active
+      .alert.alert-danger
+        | You are blocked pleas contact with Admin
     main[role="main"]
       == render 'layouts/messages'
       == yield

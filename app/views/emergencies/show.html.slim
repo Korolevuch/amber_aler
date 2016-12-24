@@ -12,11 +12,12 @@ section
     = render 'messages/list', emergency: @emergency
     hr
     h4
-      - if @emergency.allow_messages_for? current_user
+      - if @emergency.allow_messages_for?(current_user) && current_user.active
         | Leave a Message:
         = render 'messages/form', emergency: @emergency
       - else
         | Messages not allowed
+      - if current_user.active
 
   div.col-md-4
     div.well
