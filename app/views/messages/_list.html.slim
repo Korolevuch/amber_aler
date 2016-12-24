@@ -16,10 +16,4 @@
 
       = sanitize_wysiwyg message.text
 = paginate @messages
-hr
-h4
-  - if emergency.allow_messages_for? current_user
-    | #{t("message.live_mess")}
-    = render 'messages/form', emergency: emergency
-  - else
-    | #{t('message.not_allowed')}
+

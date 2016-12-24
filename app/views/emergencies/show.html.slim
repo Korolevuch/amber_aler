@@ -10,6 +10,13 @@ section
       hr
       = sanitize_wysiwyg @emergency.description
     = render 'messages/list', emergency: @emergency
+    hr
+    h4
+      - if @emergency.allow_messages_for? current_user
+        | Leave a Message:
+        = render 'messages/form', emergency: @emergency
+      - else
+        | Messages not allowed
 
   div.col-md-4
     div.well
