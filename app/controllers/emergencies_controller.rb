@@ -19,7 +19,9 @@ class EmergenciesController < ApplicationController
   end
 
   def index
-    @emergencies = Emergency.not_archived.order(updated_at: :desc).page(params[:page]).per(5)
+    @emergencies = Emergency.not_archived.order(updated_at: :desc)
+    @emergencies = @emergencies.where("title LIKE ?", "%#{params[:q]}%") if params[:q].present?
+    @emergencies = @emergencies.page(params[:page]).per(5)
   end
 
   def edit
