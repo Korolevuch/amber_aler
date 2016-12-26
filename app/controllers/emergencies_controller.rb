@@ -24,8 +24,7 @@ class EmergenciesController < ApplicationController
     @emergencies = @emergencies.page(params[:page]).per(5)
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @emergency.update(page_params)

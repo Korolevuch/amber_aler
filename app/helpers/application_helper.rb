@@ -13,6 +13,15 @@ module ApplicationHelper
       image_tag('photo.jpg', size: 80, class: "circular-image")
     end
   end
+
+  def on_off(user)
+    time_difernt = user.last_activity - Time.now
+    if time_difernt.abs < 450 && user.online
+      'online'
+    else
+      'offline'
+    end
+  end
 end
 
 

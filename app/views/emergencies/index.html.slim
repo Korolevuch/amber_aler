@@ -28,7 +28,7 @@ section
     div.well
       h4
         | #{t("show_emerg.nav")}
-      - if current_user&.active == false
+      - if current_user && !current_user.active
         = "#{t("emerg_index.create_n")}"
       - else
         = link_to "#{t("emerg_index.create_n")}", new_emergency_path

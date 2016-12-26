@@ -7,7 +7,7 @@
     ul.dropdown-menu
       li = link_to "#{t("nav_links.prof")}", user_path(current_user)
       li = link_to "#{t("nav_links.edit")}", edit_user_registration_path
-      li = link_to "#{t("nav_links.out")}", destroy_user_session_path, :method=>'delete'
+      li = link_to "#{t("nav_links.out")}",  destroy_user_session_path, :method=>'delete'
 - else
     ul.nav.navbar-right.navbar-top-links
       li = link_to "#{t("nav_links.sign_in")}", new_user_session_path, class: 'navbar-brand'

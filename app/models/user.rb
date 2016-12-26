@@ -19,6 +19,8 @@
 #  avatar                 :string
 #  role                   :integer          default("user")
 #  active                 :boolean          default(TRUE)
+#  last_activity          :datetime
+#  online                 :boolean          default(FALSE)
 #
 # Indexes
 #
