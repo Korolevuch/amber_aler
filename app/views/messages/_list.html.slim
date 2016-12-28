@@ -9,7 +9,7 @@
         /title can go here
         small
           => "#{message.user.display_name}:"
-          = status_online_for?(message.user) ? User::ONLINE : User::OFFlINE
+          = user_status?(message.user)
           br
           => message.created_at
           - if message.user == current_user&.active

@@ -33,7 +33,7 @@ class User < ApplicationRecord
   validates :name, :email, presence: true
   enum role: [:user, :admin]
   ONLINE = 'Online'.freeze
-  OFFlINE = 'Offline'.freeze
+  OFFLINE = 'Offline'.freeze
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
