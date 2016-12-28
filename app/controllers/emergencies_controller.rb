@@ -19,11 +19,12 @@ class EmergenciesController < ApplicationController
   end
 
   def index
-    @emergencies = Emergency.not_archived.order(updated_at: :desc).page(params[:page]).per(5)
+    @emergencies = Emergency.not_archived.order(updated_at: :desc)
+    @emergencies = @emergencies.where("title LIKE ?", "%#{params[:q]}%") if params[:q].present?
+    @emergencies = @emergencies.page(params[:page]).per(5)
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @emergency.update(page_params)
@@ -35,7 +36,7 @@ class EmergenciesController < ApplicationController
 
   def show
     @message = Message.new(emergency: @emergency)
-    @messages = @emergency.messages.page(params[:page]).per(5)
+    @messages = @emergency.messages.includes(:user).page(params[:page]).per(5)
   end
 
   def destroy

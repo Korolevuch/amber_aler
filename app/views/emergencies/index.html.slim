@@ -28,9 +28,16 @@ section
     div.well
       h4
         | #{t("show_emerg.nav")}
-      - if current_user&.active == false
+      - if current_user && !current_user.active
         = "#{t("emerg_index.create_n")}"
       - else
         = link_to "#{t("emerg_index.create_n")}", new_emergency_path
+  .col-md-4
+    .row
+      .col-md-12
+        = form_tag emergencies_path, method: :get, enforce_utf8: false, class: 'form-inline' do
+          .form-group
+            = text_field_tag 'q', '', placeholder: 'Search...', class: 'form-control'
+            = submit_tag 'Search', name: nil, class: 'btn btn-default'
 
 

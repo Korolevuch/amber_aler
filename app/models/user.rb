@@ -19,6 +19,8 @@
 #  avatar                 :string
 #  role                   :integer          default("user")
 #  active                 :boolean          default(TRUE)
+#  last_activity          :datetime
+#  online                 :boolean          default(FALSE)
 #
 # Indexes
 #
@@ -30,6 +32,8 @@ class User < ApplicationRecord
   mount_uploader :avatar, AvatarUploader
   validates :name, :email, presence: true
   enum role: [:user, :admin]
+  ONLINE = 'Online'.freeze
+  OFFLINE = 'Offline'.freeze
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
