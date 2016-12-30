@@ -13,6 +13,7 @@ gem 'kaminari'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'responsive_images'
+gem 'jquery-ui-rails'
 group :development, :test do
   gem 'byebug'
 end

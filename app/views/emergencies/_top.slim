@@ -1,0 +1,9 @@
+.row
+  h3.lead Most сommented emergencies
+  .column
+    table.table-condensed
+      tbody
+        - @top_emergencies.each_key do |em|
+          tr
+            td
+              = link_to em.title, em

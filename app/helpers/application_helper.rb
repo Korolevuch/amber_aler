@@ -14,7 +14,7 @@ module ApplicationHelper
     end
   end
 
-  def user_status?(user)
+  def user_status(user)
     status_online_for?(user) ? User::ONLINE : User::OFFLINE
   end
 

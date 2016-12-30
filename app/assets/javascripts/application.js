@@ -21,4 +21,5 @@
 //= require plugins/table.min.js
 //= require pnglib.js
 //= require identicon.js
+//= require jquery-ui/widgets/datepicker
 //= require_tree .

@@ -1,5 +1,4 @@
 class EmergenciesController < ApplicationController
-
   before_action :find_emergency, only: [:edit, :update, :show, :destroy]
   before_action :authenticate_user!, only: [:new, :create, :edit, :update]
   before_action :only_author!, only: [:edit, :update, :destroy]
@@ -22,6 +21,7 @@ class EmergenciesController < ApplicationController
     @emergencies = Emergency.not_archived.order(updated_at: :desc)
     @emergencies = @emergencies.where("title LIKE ?", "%#{params[:q]}%") if params[:q].present?
     @emergencies = @emergencies.page(params[:page]).per(5)
+    @top_emergencies = TopEmergencies.call
   end
 
   def edit; end
@@ -48,6 +48,7 @@ class EmergenciesController < ApplicationController
   end
 
   private
+
     def only_author!
       unless @emergency.user == current_user
         redirect_to emergencies_path, flash: {error: 'Only author can update emergency'}

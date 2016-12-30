@@ -2,7 +2,6 @@ section
   div.col-md-8
     h1.page-header
       | #{t("emerg_index.last_emerg")}
-
     - @emergencies.each do |emergency|
       h2 = link_to emergency.title, emergency
       p.lead = "by #{emergency.user.display_name}"
@@ -39,5 +38,8 @@ section
           .form-group
             = text_field_tag 'q', '', placeholder: 'Search...', class: 'form-control'
             = submit_tag 'Search', name: nil, class: 'btn btn-default'
+        = render 'top'
+javascript:
+  $('#q').datepicker();
 
 

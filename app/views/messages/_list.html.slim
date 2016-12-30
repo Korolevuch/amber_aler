@@ -9,7 +9,7 @@
         /title can go here
         small
           => "#{message.user.display_name}:"
-          = user_status?(message.user)
+          = user_status(message.user)
           br
           => message.created_at
           - if message.user == current_user&.active
