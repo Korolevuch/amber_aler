@@ -18,7 +18,7 @@ class EmergenciesController < ApplicationController
   end
 
   def index
-    @emergency_queries = EmergencyQueries.(params)
+    @emergency_queries = EmergencyQuery.(params)
   end
 
   def edit; end

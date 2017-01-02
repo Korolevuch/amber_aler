@@ -5,8 +5,7 @@ class TopEmergencies
   end
 
   def top_three
-     top = last_two_days_emergencies.sort {|a, b| a.messages.size <=> b.messages.size }
-     top.last(3)
+     last_two_days_emergencies.sort {|a,b| a.messages.size <=> b.messages.size}.last(3)
   end
 
   private

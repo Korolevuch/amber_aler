@@ -8,22 +8,18 @@
 #  user_id     :integer
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
-#  status      :string           default("active")
+#  status      :integer          default("active")
 #
 
 class Emergency < ApplicationRecord
   belongs_to :user
   has_many :messages, dependent: :destroy
+  enum status: {active: 0, closed: 1, archived: 2}
 
-  STATUSES = [ACTIVE = "active", CLOSED = "closed", ARCHIVED = "archived"]
-
-  scope :active,   -> { where(status: ACTIVE) }
-  scope :closed,   -> { where(status: CLOSED) }
-  scope :archived, -> { where(status: ARCHIVED) }
-
-  scope :not_archived, -> { where(status: STATUSES - [ARCHIVED]) }
+  scope :not_archived, -> { where.not(status: 'archived')}
 
   def allow_messages_for?(user)
-    status == ACTIVE || user == self.user
+    self.active? || user == self.user
   end
+
 end
