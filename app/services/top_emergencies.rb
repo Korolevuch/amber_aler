@@ -5,12 +5,8 @@ class TopEmergencies
   end
 
   def top_three
-     top = Hash.new
-     last_two_days_emergencies.inject(0) do |c, em|
-      c = em.messages.count
-      top[em] = c
-    end
-    top.sort_by(&:last).last(3).to_h
+     top = last_two_days_emergencies.sort {|a, b| a.messages.size <=> b.messages.size }
+     top.last(3)
   end
 
   private
