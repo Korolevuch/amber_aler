@@ -2,7 +2,7 @@ section
   div.col-md-8
     h1.page-header
       | #{t("emerg_index.last_emerg")}
-    - @emergencies.each do |emergency|
+    - @emergency_queries.emergencies.each do |emergency|
       h2 = link_to emergency.title, emergency
       p.lead = "by #{emergency.user.display_name}"
       p
@@ -21,7 +21,7 @@ section
       = link_to "#{t("emerg_index.read_more")}", emergency, class: "btn btn-primary"
       hr
 
-    = paginate @emergencies
+    = paginate @emergency_queries.emergencies
 
   div.col-md-4
     div.well
@@ -39,7 +39,5 @@ section
             = text_field_tag 'q', '', placeholder: 'Search...', class: 'form-control'
             = submit_tag 'Search', name: nil, class: 'btn btn-default'
         = render 'top'
-javascript:
-  $('#q').datepicker();
 
 

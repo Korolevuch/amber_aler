@@ -3,7 +3,7 @@
   .column
     table.table-condensed
       tbody
-        - @top_emergencies.each_key do |em|
+        - @emergency_queries.top_emergencies.each do |em|
           tr
             td
               = link_to em.title, em

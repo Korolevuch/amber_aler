@@ -8,12 +8,12 @@
       h4.media-heading
         /title can go here
         small
-          => "#{message.user.display_name}:"
+          = "#{message.user.display_name}:"
           = user_status(message.user)
           br
-          => message.created_at
+          = message.created_at
           - if message.user == current_user&.active
-            => link_to "#{t("emerg_index.edit")}", edit_message_path(message)
+            = link_to "#{t("emerg_index.edit")}", edit_message_path(message)
             = link_to "#{t("emerg_index.destroy")}", message_path(message), method: :delete, data: {confirm: "#{t('emerg_index.conf_destroy')}"}
 
       = sanitize_wysiwyg message.text
