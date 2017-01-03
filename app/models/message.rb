@@ -23,17 +23,12 @@
 
 class Message < ApplicationRecord
   belongs_to :user
-  belongs_to :emergency
+  belongs_to :emergency, touch: true
+  before_save :closed_emergency
 
-  before_save do |record|
-    emergency.update(status: 'closed') if claim_closed?
-  end
+  private
 
-  before_save    :touch_emergency!
-  before_destroy :touch_emergency!
-
-  protected
-  def touch_emergency!
-    emergency.touch
+  def closed_emergency
+    emergency.update(status: Emergency::CLOSED) if claim_closed?
   end
 end

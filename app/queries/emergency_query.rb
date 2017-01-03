@@ -11,7 +11,7 @@ class EmergencyQuery
   end
 
   def emergencies
-    emergencies = Emergency.not_archived.order(updated_at: :desc)
+    emergencies = Emergency.not_archived_desc
     emergencies = emergencies.where("title LIKE ?", "%#{params[:q]}%") if params[:q].present?
     emergencies.page(params[:page]).per(5)
   end
