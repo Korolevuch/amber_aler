@@ -6,15 +6,15 @@ section
       h2 = link_to emergency.title, emergency
       p.lead = "by #{emergency.user.display_name}"
       p
-        - if emergency.updated_at != emergency.created_at
+        - if emergency_policy(emergency).emergency_created_updated_range
           span.glyphicon.glyphicon-time>
           span => "#{t("emerg_index.updated")} #{emergency.updated_at}"
         span.glyphicon.glyphicon-time>
         span => "#{t("emerg_index.created")} #{emergency.created_at}"
-        - if emergency.user == current_user && current_user.active
-          => link_to "#{t("emerg_index.edit")}", edit_emergency_path(emergency)
-          = link_to "#{t("emerg_index.destroy")}", emergency_path(emergency), method: :delete, data:{confirm: "#{t('emerg_index.conf_destroy')}" } unless current_user.admin?
-        - if user_signed_in? && current_user.admin?
+        - if emergency_policy(emergency).my_emergency?
+          = link_to "#{t("emerg_index.edit")}", edit_emergency_path(emergency)
+          = link_to "#{t("emerg_index.destroy")}", emergency_path(emergency), method: :delete, data: { confirm: "#{t('emerg_index.conf_destroy')}" }
+        - elsif admin_policy.user_admin?
             = link_to "Delete", admin_emergency_path(emergency), method: :delete, data: {confirm: 'Are you sure?'}
       hr
       = sanitize_wysiwyg emergency.description, shorten: 100
@@ -27,7 +27,7 @@ section
     div.well
       h4
         | #{t("show_emerg.nav")}
-      - if current_user && !current_user.active
+      - if user_policy.user_block?
         = "#{t("emerg_index.create_n")}"
       - else
         = link_to "#{t("emerg_index.create_n")}", new_emergency_path
@@ -39,5 +39,4 @@ section
             = text_field_tag 'q', '', placeholder: 'Search...', class: 'form-control'
             = submit_tag 'Search', name: nil, class: 'btn btn-default'
         = render 'top'
-
 
