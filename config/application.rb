@@ -10,6 +10,8 @@ module AmberAler
   class Application < Rails::Application
     #queries
     config.autoload_paths += Dir[Rails.root.join('app', 'queries')]
+    config.autoload_paths += Dir[Rails.root.join('app', 'policies')]
+
     config.generators do |g|
       g.test_framework :rspec,
         fixtures: true,
