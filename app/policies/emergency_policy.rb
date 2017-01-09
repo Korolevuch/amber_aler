@@ -10,7 +10,7 @@ class EmergencyPolicy
     emergency.user == current_user && current_user.active
   end
 
-  def emergency_created_updated_range
+  def emergency_was_changing?
     emergency.updated_at != emergency.created_at
   end
 end

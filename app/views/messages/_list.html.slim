@@ -12,7 +12,7 @@
           = user_status(message.user)
           br
           = message.created_at
-          - if user_policy.user_cen_edit_message?(message.user)
+          - if user_policy.can_edit_message?(message.user)
             = link_to "#{t("emerg_index.edit")}", edit_message_path(message)
             = link_to "#{t("emerg_index.destroy")}", message_path(message), method: :delete, data: {confirm: "#{t('emerg_index.conf_destroy')}"}
 

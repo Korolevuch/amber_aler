@@ -6,7 +6,7 @@ section
       h2 = link_to emergency.title, emergency
       p.lead = "by #{emergency.user.display_name}"
       p
-        - if emergency_policy(emergency).emergency_created_updated_range
+        - if emergency_policy(emergency).emergency_was_changing?
           span.glyphicon.glyphicon-time>
           span => "#{t("emerg_index.updated")} #{emergency.updated_at}"
         span.glyphicon.glyphicon-time>
@@ -27,7 +27,7 @@ section
     div.well
       h4
         | #{t("show_emerg.nav")}
-      - if user_policy.user_block?
+      - if user_policy.block?
         = "#{t("emerg_index.create_n")}"
       - else
         = link_to "#{t("emerg_index.create_n")}", new_emergency_path

@@ -12,7 +12,7 @@ section
     = render 'messages/list', emergency: @emergency
     hr
     h4
-      - if user_policy.messages_allow_for_user?(@emergency)
+      - if user_policy.messages_allow?(@emergency)
         | Leave a Message:
         = render 'messages/form', emergency: @emergency
       - else
