@@ -1,7 +1,7 @@
 class EmergenciesController < ApplicationController
-  before_action :find_emergency, only: [:edit, :update, :show, :destroy]
+  before_action :find_emergency, only: [:edit, :update, :show, :destroy,            :only_author_and_editor!, :add_editor]
   before_action :authenticate_user!, only: [:new, :create, :edit, :update]
-  before_action :only_author!, only: [:edit, :update, :destroy]
+  before_action :only_author_and_editor!, only: [:edit, :update, :destroy]
 
   def new
     @emergency = Emergency.new
@@ -37,20 +37,30 @@ class EmergenciesController < ApplicationController
   end
 
   def destroy
-    if @emergency.destroy
-      redirect_to emergencies_path
+    if @emergency.user == current_user
+       @emergency.destroy
+      redirect_to emergencies_path ,flash: {error: 'Emergency was daleted'}
     else
-      redirect_to emergencies_path, flash: {error: 'Something goes wrong'}
+      @emergency.users.delete(current_user)
+      redirect_to emergencies_path, flash: {error: 'You lost rigst to edit the emergeny'}
+    end
+  end
+
+  def add_editor
+    if AddEditor.(@emergency, params)
+      redirect_to emergency_path(@emergency), flash: {ssacces: 'You add new editor to your emergency'}
+    else
+      redirect_to emergency_path(@emergency), flash: {error: 'User not found'}
     end
   end
 
   private
 
-    def only_author!
-      unless @emergency.user == current_user
-        redirect_to emergencies_path, flash: {error: 'Only author can update emergency'}
-      end
+  def only_author_and_editor!
+    unless @emergency.user == current_user || @emergency.users.include?(current_user)
+      redirect_to emergencies_path, flash: {error: 'Only author and editor can update emergency'}
     end
+  end
 
     def page_params
       params[:emergency].permit(:title, :description)

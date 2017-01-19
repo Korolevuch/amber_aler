@@ -4,6 +4,9 @@ Rails.application.routes.draw do
   }
   resources :users
   resources :emergencies do
+    member do
+      post 'add_editor'
+    end
     resources :messages, except: [:index, :show, :new], shallow: true
   end
   namespace :admin do

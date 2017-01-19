@@ -7,7 +7,7 @@ class EmergencyPolicy
   end
 
   def my_emergency?
-    emergency.user == current_user && current_user.active
+     emergency.users.include?(current_user) || emergency.user == current_user && current_user.active
   end
 
   def emergency_was_changing?

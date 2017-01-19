@@ -38,10 +38,8 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-
-
-  has_many :emergencies, dependent: :destroy
-  has_many :messages,    dependent: :destroy
+  has_many                :emergencies
+  has_many                :messages, dependent: :destroy
 
 
   validates_presence_of   :avatar
