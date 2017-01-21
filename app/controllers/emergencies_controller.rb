@@ -42,8 +42,8 @@ class EmergenciesController < ApplicationController
         @emergency.destroy
         redirect_to emergencies_path ,flash: { success: 'Emergency was daleted' }
     else
-      emergency_policy(@emergency).remove_editor
-      redirect_to emergencies_path, flash: { error: 'You lost rigst to edit the emergeny' }
+      @emergency.users.delete(current_user)
+      redirect_to emergencies_path, flash: { error: 'You lost rights to edit the emergency' }
     end
   end
 
@@ -55,8 +55,8 @@ class EmergenciesController < ApplicationController
   private
 
   def only_author_and_editor!
-   unless emergency_policy(@emergency).can_edit?
-    redirect_to emergencies_path, flash: { error: 'Only author and editor can update emergency' }
+    unless emergency_policy(@emergency).can_edit?
+      redirect_to emergencies_path, flash: { error: 'Only author and editor can update emergency' }
     end
   end
 

@@ -2,7 +2,7 @@ class AddEditor
   attr_reader :emergency, :params
 
   def self.call(emergency, params)
-    new(emergency, params).perfome
+    new(emergency, params).perform
   end
 
   def initialize(emergency, params)
@@ -10,12 +10,34 @@ class AddEditor
     @params = params
   end
 
-  def perfome
-    result = emergency.users << editor if !emergency.users.exists?(editor) && (editor != nil && editor.active?)
-    result != nil ? { success: 'Editor aded' } : { error: 'Incorect user or user already in the list' }
+  def perform
+    return incorrect_user unless editor&.active?
+    return editor_already if present_in_list?
+    add_user_to_editors
+    successfully_added
+  end
+
+  def successfully_added
+    { success: 'Editor was added' }
+  end
+
+  def incorrect_user
+    { error: 'Incorrect user' }
+  end
+
+  def editor_already
+    { error: 'User already in the list' }
   end
 
   private
+
+  def add_user_to_editors
+    emergency.users << editor
+  end
+
+  def present_in_list?
+    emergency.users.exists?(editor)
+  end
 
   def editor
     User.find_by(email: params[:q]) if params[:q].present?
