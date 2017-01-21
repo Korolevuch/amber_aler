@@ -7,10 +7,26 @@ class EmergencyPolicy
   end
 
   def my_emergency?
-     emergency.users.include?(current_user) || emergency.user == current_user && current_user.active
+     emergency.users.include?(current_user) || emergency.user == current_user &&   current_user.active
   end
 
   def emergency_was_changing?
     emergency.updated_at != emergency.created_at
+  end
+
+  def owner?
+    emergency.user == current_user
+  end
+
+  def editor?
+    emergency.users.include?(current_user)
+  end
+
+  def can_edit?
+    editor? || owner? if current_user.active?
+  end
+
+  def remove_editor
+    emergency.users.delete(current_user)
   end
 end

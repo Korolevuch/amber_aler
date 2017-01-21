@@ -7,10 +7,10 @@ Rails.application.routes.draw do
     member do
       post 'add_editor'
     end
-    resources :messages, except: [:index, :show, :new], shallow: true
+    resources :messages, except: %i(index show new), shallow: true
   end
   namespace :admin do
-    resources :emergencies, only: [:destroy]
+    resources :emergencies, only: %i(destroy)
     resources :users do
       member do
         patch 'toggle_active'

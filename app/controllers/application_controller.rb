@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
   end
 
   def user_online
-    current_user.update_columns(last_activity: Time.now, online: true) if current_user
+    current_user.update(last_activity: Time.now, online: true) if current_user
   end
 end
 

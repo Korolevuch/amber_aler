@@ -25,10 +25,9 @@ section
         | #{t("show_emerg.nav")}
       = link_to t("show_emerg.all"), emergencies_path
     .col-md-12
-      - if @emergency.user == current_user
+      - if emergency_policy(@emergency).owner?
         | Add editor to yor emergency
         = form_tag add_editor_emergency_path, method: :post, enforce_utf8: false, class: 'form-inline' do
           .form-group
             input.form-control name="q" type="email" placeholder="Add email..." required="true"
-            / = text_field_tag 'q', '', placeholder: 'add email...', class: 'form-control'
             = submit_tag 'Add', name: nil, class: 'btn btn-default'
