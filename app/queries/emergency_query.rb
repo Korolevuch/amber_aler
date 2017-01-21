@@ -1,5 +1,4 @@
 class EmergencyQuery
-
   attr_reader :params
 
   def self.call(params)

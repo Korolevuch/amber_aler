@@ -1,4 +1,4 @@
-# == Schema Information
+ # == Schema Information
 #
 # Table name: emergencies
 #
@@ -12,8 +12,9 @@
 #
 
 class Emergency < ApplicationRecord
-  belongs_to :user
-  has_many :messages, dependent: :destroy
+  belongs_to              :user
+  has_and_belongs_to_many :users
+  has_many                :messages, dependent: :destroy
 
   ACTIVE   = 0
   CLOSED   = 1

@@ -1,7 +1,8 @@
 class EmergenciesController < ApplicationController
-  before_action :find_emergency, only: [:edit, :update, :show, :destroy]
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update]
-  before_action :only_author!, only: [:edit, :update, :destroy]
+  include EmergencyHelper
+  before_action :find_emergency, only: %i(edit update show destroy only_author_and_editor! add_editor)
+  before_action :authenticate_user!, only: %i(new create edit update)
+  before_action :only_author_and_editor!, only: %i(edit update destroy)
 
   def new
     @emergency = Emergency.new
@@ -37,26 +38,33 @@ class EmergenciesController < ApplicationController
   end
 
   def destroy
-    if @emergency.destroy
-      redirect_to emergencies_path
+    if emergency_policy(@emergency).owner?
+        @emergency.destroy
+        redirect_to emergencies_path ,flash: { success: 'Emergency was daleted' }
     else
-      redirect_to emergencies_path, flash: {error: 'Something goes wrong'}
+      @emergency.users.delete(current_user)
+      redirect_to emergencies_path, flash: { error: 'You lost rights to edit the emergency' }
     end
+  end
+
+  def add_editor
+    result = AddEditor.(@emergency, params)
+    redirect_to emergency_path(@emergency), flash: result
   end
 
   private
 
-    def only_author!
-      unless @emergency.user == current_user
-        redirect_to emergencies_path, flash: {error: 'Only author can update emergency'}
-      end
+  def only_author_and_editor!
+    unless emergency_policy(@emergency).can_edit?
+      redirect_to emergencies_path, flash: { error: 'Only author and editor can update emergency' }
     end
+  end
 
-    def page_params
-      params[:emergency].permit(:title, :description)
-    end
+  def page_params
+    params.require(:emergency).permit(:title, :description)
+  end
 
-    def find_emergency
-      @emergency = Emergency.find(params[:id])
-    end
+  def find_emergency
+    @emergency = Emergency.find(params[:id])
+  end
 end

@@ -24,3 +24,10 @@ section
       h4
         | #{t("show_emerg.nav")}
       = link_to t("show_emerg.all"), emergencies_path
+    .col-md-12
+      - if emergency_policy(@emergency).owner?
+        | Add editor to your emergency
+        = form_tag add_editor_emergency_path, method: :post, enforce_utf8: false, class: 'form-inline' do
+          .form-group
+            input.form-control name="q" type="email" placeholder="Add email..." required="true"
+            = submit_tag 'Add', class: 'btn btn-default'

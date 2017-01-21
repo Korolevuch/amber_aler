@@ -6,11 +6,25 @@ class EmergencyPolicy
     @current_user = params[:current_user]
   end
 
-  def my_emergency?
-    emergency.user == current_user && current_user.active
-  end
-
   def emergency_was_changing?
     emergency.updated_at != emergency.created_at
+  end
+
+  def owner?
+    emergency.user == current_user
+  end
+
+  def editor?
+    emergency.users.include?(current_user)
+  end
+
+  def can_edit?
+    editor? || owner? if user_active?
+  end
+
+  private
+
+  def user_active?
+    current_user&.active?
   end
 end

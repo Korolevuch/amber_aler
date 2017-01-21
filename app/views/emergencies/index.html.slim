@@ -11,7 +11,7 @@ section
           span => "#{t("emerg_index.updated")} #{emergency.updated_at}"
         span.glyphicon.glyphicon-time>
         span => "#{t("emerg_index.created")} #{emergency.created_at}"
-        - if emergency_policy(emergency).my_emergency?
+        - if emergency_policy(emergency).can_edit?
           = link_to "#{t("emerg_index.edit")}", edit_emergency_path(emergency)
           = link_to "#{t("emerg_index.destroy")}", emergency_path(emergency), method: :delete, data: { confirm: "#{t('emerg_index.conf_destroy')}" }
         - elsif admin_policy.user_admin?
