@@ -14,6 +14,7 @@ gem 'carrierwave'
 gem 'mini_magick'
 gem 'responsive_images'
 gem 'jquery-ui-rails'
+gem 'puma'
 group :development, :test do
   gem 'byebug'
 end
