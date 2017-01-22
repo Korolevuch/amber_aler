@@ -16,13 +16,17 @@ class EmergencyQuery
   end
 
   def top_emergencies
-    last_two_days_emergencies.sort {|a,b| a.messages.size <=> b.messages.size}.last(3)
+    emergency_where_presents_comments.sort {|a,b| a.messages.size <=> b.messages.size }.last(3)
   end
 
   private
 
   def last_two_days_emergencies
-    @last_two_days_emergencies ||= Emergency.where(created_at: last_two_days)
+    Emergency.where(created_at: last_two_days)
+  end
+
+  def emergency_where_presents_comments
+    last_two_days_emergencies.select {|a| !a.messages.empty? }
   end
 
   def last_two_days
