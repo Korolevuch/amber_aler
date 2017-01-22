@@ -1,7 +1,7 @@
 div.well
   = simple_form_for([@emergency, @message]) do |f|
     = f.input :text, rows: 3
-    - if emergency_policy(@emergency).owner?
+    - if message_policy(@message).user_can_close_emergency?
       = f.input :claim_closed, as: :boolean, class: 'btn btn-primary'
     = f.button :submit
 

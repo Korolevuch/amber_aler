@@ -1,5 +1,5 @@
 class MessagesController < ApplicationController
-  before_action :find_message, only: [:edit, :update, :destroy]
+  before_action :find_message, only: %i(edit update destroy)
 
   def create
     @message = Message.new(message_params)
@@ -12,8 +12,7 @@ class MessagesController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @message.update(message_params)
@@ -32,6 +31,7 @@ class MessagesController < ApplicationController
   end
 
   private
+
   def message_params
     params.require(:message).permit(:text, :claim_closed)
   end
