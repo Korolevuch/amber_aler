@@ -26,7 +26,7 @@ class EmergencyQuery
   end
 
   def emergency_where_presents_comments
-    last_two_days_emergencies.select {|a| !a.messages.empty? }
+    last_two_days_emergencies.select {|a| a.messages.present? }
   end
 
   def last_two_days
